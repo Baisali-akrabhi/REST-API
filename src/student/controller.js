@@ -1,12 +1,14 @@
 const pool = require('../../db');
 const queries = require('./queries');
 
+//--------------------------- GET Student-------------------------------
 const getStudents = (req, res) => {
     pool.query(queries.getStudents, (error, results) => {
         if (error) throw error;
         res.status(200).json(results.rows)
     });
 };
+//------------------------- Get Student by ID-----------------------------------
 const getStudentsById = (req, res) => {
     const id = parseInt(req.params.id);
     pool.query(queries.getStudentsById, [id], (error, results) => {
@@ -14,6 +16,7 @@ const getStudentsById = (req, res) => {
         res.status(200).json(results.rows)
     });
 };
+// -------------------------Add Student--------------------------------------
 const addStudents = (req, res) => {
     const { name, email, age, dob } = req.body;
     // check email is exist
@@ -32,7 +35,7 @@ const addStudents = (req, res) => {
         }
     });
 };
-
+// ----------------------------Remove Student----------------------------
 const removeStudent = (req, res) => {
     const id = parseInt(req.params.id);
 
@@ -48,6 +51,7 @@ const removeStudent = (req, res) => {
 
     })
 }
+// ------------------------Update Student-------------------------------
 const updateStudent = (req, res) => {
     const id = parseInt(req.params.id);
     const {name} = req.body;
